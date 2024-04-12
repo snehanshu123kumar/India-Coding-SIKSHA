@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Coding SkIKSHA</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 30%;
+        }
+
+        h1, h2 {
+            margin-top: 0;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        li:hover {
+            text-decoration: underline;
+        }
+
+        #content {
+            display: none;
+        }
+
+        #notes {
+            margin-top: 10px;
+        }
+
+        #review-section {
+            margin-top: 20px;
+        }
+
+        #reviews {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .review {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .review p {
+            margin: 5px 0;
+        }
+
+        .stars {
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Indian Coding Skiksha</h1>
+    </header>
+    <main>
+        <section id="developer-options">
+            <h2>Choose Developer Field:</h2>
+            <button onclick="showLanguageOptions('web')">Web Developer</button>
+            <button onclick="showLanguageOptions('app')">App Developer</button>
+            <button onclick="showLanguageOptions('game')">Game Developer</button>
+        </section>
+        <section id="language-options" style="display: none;">
+            <h2>Choose Language:</h2>
+            <ul id="language-list"></ul>
+        </section>
+        <section id="content">
+            <h2>Notes:</h2>
+            <p id="notes"></p>
+            <h2>Videos:</h2>
+            <p id="videos">Videos for this language will be displayed here.</p>
+            <div id="review-section">
+                <h2>Reviews:</h2>
+                <ul id="reviews"></ul>
+                <textarea id="review-input" placeholder="Write your review here"></textarea>
+                <br>
+                <select id="rating">
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+                <button onclick="submitReview()">Submit Review</button>
+            </div>
+        </section>
+    </main>
+    <script>
+        function showLanguageOptions(field) {
+            document.getElementById('language-list').innerHTML = ''; // Clear previous options
+            var languages;
+            if (field === 'web') {
+                languages = [
+                    { name: 'HTML', notes: 'HTML stands for Hyper Text Markup Language.' },
+                    { name: 'JavaScript', notes: 'JavaScript is a programming language that enables interactive web pages.' },
+                    { name: 'CSS', notes: 'CSS is used for styling HTML elements on web pages.' },
+                    { name: 'Python', notes: 'Python is a versatile programming language used for web development, data analysis, artificial intelligence, and more.' },
+                    { name: 'PHP', notes: 'PHP is a server-side scripting language commonly used for web development.' },
+                    { name: 'Ruby', notes: 'Ruby is a dynamic, object-oriented programming language known for its simplicity and productivity.' },
+                    { name: 'Java', notes: 'Java is a popular programming language used for building web applications, Android apps, and enterprise software.' },
+                    { name: 'C#', notes: 'C# is a programming language developed by Microsoft and commonly used for building Windows applications and web services.' },
+                    { name: 'TypeScript', notes: 'TypeScript is a superset of JavaScript that adds static types to the language, making it more robust and scalable.' },
+                    { name: 'Django', notes: 'Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design.' }
+                ];
+            } else if (field === 'app') {
+                languages = [
+                    { name: 'Kotlin', notes: 'Kotlin is a modern programming language for Android development.' },
+                    { name: 'Java', notes: 'Java is a popular programming language used for building Android apps.' },
+                    { name: 'Swift', notes: 'Swift is a powerful and intuitive programming language created by Apple for building iOS, macOS, watchOS, and tvOS apps.' },
+                    { name: 'Flutter', notes: 'Flutter is Google’s UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.' },
+                    { name: 'React Native', notes: 'React Native is a JavaScript framework for building native mobile applications using React.' },
+                    { name: 'Ionic', notes: 'Ionic is a complete open-source SDK for hybrid mobile app development.' },
+                    { name: 'Xamarin', notes: 'Xamarin is a Microsoft-owned framework that allows you to create mobile apps using C# and .NET.' },
+                    { name: 'PhoneGap', notes: 'PhoneGap is an open-source development framework for building cross-platform mobile apps using HTML, CSS, and JavaScript.' },
+                    { name: 'NativeScript', notes: 'NativeScript is an open-source framework for building truly native mobile applications using JavaScript.' },
+                    { name: 'Objective-C', notes: 'Objective-C is an object-oriented programming language used by Apple for macOS and iOS operating systems.' }
+                ];
+            } else if (field === 'game') {
+                languages = [
+                    { name: 'C#', notes: 'C# is a programming language commonly used for game development with Unity.' },
+                    { name: 'C++', notes: 'C++ is a powerful programming language used for developing games, operating systems, and other performance-intensive applications.' },
+                    { name: 'Java', notes: 'Java is a versatile programming language that can be used for game development with various frameworks and libraries.' },
+                    { name: 'Python', notes: 'Python is a high-level programming language known for its simplicity and readability, often used in game development for its ease of use.' },
+                    { name: 'JavaScript', notes: 'JavaScript is a scripting language commonly used for web development, but it can also be used for game development with frameworks like Phaser and Three.js.' },
+                    { name: 'Unity', notes: 'Unity is a cross-platform game engine used for developing video games for PC, consoles, mobile devices, and websites.' },
+                    { name: 'Unreal Engine', notes: 'Unreal Engine is a powerful game development platform used to create high-quality, interactive experiences across PC, console, mobile, and VR platforms.' },
+                    { name: 'Godot Engine', notes: 'Godot Engine is a feature-packed, cross-platform game engine that offers a wide range of tools and capabilities for game developers.' },
+                    { name: 'GameMaker Studio', notes: 'GameMaker Studio is a user-friendly game development platform that allows developers to create 2D and 3D games without the need for extensive programming knowledge.' },
+                    { name: 'RPG Maker', notes: 'RPG Maker is a software application for creating role-playing video games, providing developers with tools to design, script, and publish their own games.' }
+                ];
+            }
+
+            var languageList = document.getElementById('language-list');
+            languages.forEach(function(language) {
+                var li = document.createElement('li');
+                li.textContent = language.name;
+                li.onclick = function() {
+                    showLanguageInfo(language);
+                };
+                languageList.appendChild(li);
+            });
+
+            document.getElementById('language-options').style.display = 'block';
+        }
+
+        function showLanguageInfo(language) {
+            document.getElementById('content').style.display = 'block';
+            document.getElementById('notes').textContent = language.notes;
+        }
+
+        function submitReview() {
+            var reviewInput = document.getElementById('review-input').value;
+            var rating = document.getElementById('rating').value;
+            var reviewsList = document.getElementById('reviews');
+
+            var li = document.createElement('li');
+            var stars = '';
+            for (var i = 0; i < rating; i++) {
+                stars += '★';
+            }
+            var review = document.createElement('div');
+            review.classList.add('review');
+            review.innerHTML = '<p>Rating: <span class="stars">' + stars + '</span></p><p>Review: ' + reviewInput + '</p>';
+            li.appendChild(review);
+            reviewsList.appendChild(li);
+        }
+    </script>
+</body>
+</html>
